@@ -1,0 +1,107 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #393e46;
+}
+
+.container {
+    width: 70%;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+}
+
+h1 {
+    font-size: 4.5rem;
+    font-family: 'Lobster', cursive;
+    font-weight: 300;
+    color: #4ecca3;
+    text-shadow: 4px -4px 10px #232931;
+    margin: 2% 0 1% 0;
+}
+
+p {
+    font-size: 2rem;
+    color: #4ecca3;
+    margin-bottom: 10px;
+}
+
+.dice {
+    display: inline-block;
+    text-align: center;
+    width: 30%;
+}
+
+img {
+    width: 70%;
+}
+
+.btn {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #eeeeee;
+    color: #333;
+    font-size: 20px;
+    margin-top: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+ 
+.btn:hover {
+    background-color: #dddddd;
+}
+
+.new-game {
+    margin-top: 2rem;
+}
+
+.newGameButton {
+    padding: 15px 30px;
+    background-color: #4ecca3;
+    color: white;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.newGameButton:hover {
+    background-color: #3cb58d;
+}
+
+
+footer {
+    font-family: 'Lobster', cursive;
+    font-size: 23px;
+    font-weight: 200;
+    color: #eeeeee;
+    text-align: center;
+    margin-top: 4%;
+}
+
+@media(max-width: 768px) {
+    h1 {
+        font-size: 3rem;
+    } 
+
+    p {
+        font-size: 1.5rem;
+    } 
+
+    .btn, .newGameButton {
+        font-size: 18px;
+        padding: 10px 15px;
+    }
+}
