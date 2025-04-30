@@ -1,6 +1,7 @@
 var numberOfDrums = document.querySelectorAll('.drum').length;
 var drumList = document.querySelectorAll('.drum');
 
+// A Function Which Produces The Corresponding Sound When a Key is Pressed.
 function makeSound (key) {
     switch (key) {
         case "w":
@@ -31,20 +32,42 @@ function makeSound (key) {
             var audio = new Audio('./sounds/kick-bass.mp3');
             audio.play();
             break;
-        default: alert("Invalid key played!");
+        default: console.log(key);
     }
 } 
 
+
+// Detects clicks
 for (var i = 0; i < numberOfDrums; i++) {
     drumList[i].addEventListener('click', function () {
         
     var buttonHTML = this.innerHTML;
 
     makeSound(buttonHTML);
+
+    buttonAnimation(buttonHTML);
     
     })
 }
 
+
+// Detects Keypress
 document.addEventListener('keypress', function (event) {
+
     makeSound(event.key);
+
+    buttonAnimation(event.key);
 })
+
+
+// Adds buttons animation
+function buttonAnimation(currentKey) {
+
+    var activeButton = document.querySelector("." + currentKey);
+
+    activeButton.classList.add("pressed");
+
+    setTimeout(function() {
+    activeButton.classList.remove("pressed");
+    }, 100);
+}
