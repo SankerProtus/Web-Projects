@@ -2,13 +2,6 @@ const quote = document.querySelector(".quote");
 const person = document.querySelector(".person");
 const newQuoteButton = document.querySelector(".btn");
 
-newQuoteButton.addEventListener("click", () => {
-    const randomQuote = Math.floor(Math.random() * quotes.length);
-
-    quote.innerText = quotes[randomQuote].quote;
-    person.innerText = quotes[randomQuote].person;
-});
-
 const quotes = [
     {
         quote: `"If you look at what you have in life, you'll always have more. If you look at what you don't have in life, you'll never have enough."`,
@@ -69,3 +62,11 @@ const quotes = [
         person: `✍️By: Socrates`
     }
 ];
+
+newQuoteButton.addEventListener("click", () => {
+    const randomQuote = Math.floor(Math.random() * quotes.length);
+
+    quote.innerText = quotes[randomQuote].quote;
+    person.innerText = quotes[randomQuote].person;
+});
+
