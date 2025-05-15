@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background: url(./image/pexels-mikhail-nilov.jpg) no-repeat center center/cover;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 68, 45, 1) 100%);
+}
+
+.container {
+    margin: auto;
+    padding: 20px 50px;
+    background-color: #fff;
+    width: 40%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #333;
+    text-align: center;
+}
+
+h1, 
+#date {
+    font-size: 2rem;
+    color: blue;
+    margin-top: 2%;
+}
+
+h4 {
+    font-size: 20px;
+    margin: 20px 0;
+}
+
+.displayAge {
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 10px;
+    border: none;
+    height: auto;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+input {
+    display: inline-block;
+    color: #222f3e;
+    font-size: 18px;
+    font-weight: 200;
+    outline: none;
+    border: 1px solid #333;
+    border-radius: 10px;
+    width: 225px;
+    height: 50px;
+    padding: 15px 20px;
+    margin-top: 20px;
+}
+
+input:focus {
+  width: 280px;
+  transition: 0.5s;
+}
+
+#btn {
+    display: block;
+    margin: 5% auto;
+    padding: 15px 30px;
+    background-color: blue;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    font-size: 18px;
+    transition: 0.5s;
+}
+
+#btn:hover {
+  transform: scale(1.05);
+  transition: 0.5s;
+}
+
+footer {
+    text-align: center;
+    margin: 20px;
+    color: #262635;
+    font-size: 1rem;
+}
+
+.error-input {
+    border: 2px solid #ff0000;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-20px); }
+    40%, 80% { transform: translateX(20px); }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
