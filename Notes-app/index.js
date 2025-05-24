@@ -1,103 +1,115 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const addButton = document.getElementById('add-note');
-    const noteField = document.querySelector('.note-input');
-    const noteTitle = document.getElementById('note-title');
-    const noteText = document.getElementById('note-text');
-    const saveButton = document.getElementById('save-note');
-    const ul = document.getElementById('notes');
+document.addEventListener("DOMContentLoaded", () => {
+  const addButton = document.getElementById("add-note");
+  const noteTitle = document.getElementById("note-title");
+  const noteContent = document.getElementById("note-text");
+  const saveButton = document.getElementById("save-note");
+  const noteField = document.querySelector(".note-input");
+  const ul = document.getElementById("notes");
 
-    // Initialize notes from localStorage
-    let noteList = JSON.parse(localStorage.getItem('notes')) || [];
+  // LOCAL STORAGE
+  let storeNotes = JSON.parse(localStorage.getItem("notes")) || [];
 
-    // Load existing notes on page load
-    noteList.forEach(note => addNoteDOM(note));
+//   Load existing notes
+  storeNotes.forEach((note) => {
+    updateDOM(note);
+  });
 
-    // Toggle form visibility
-    addButton.addEventListener('click', () => {
-        noteField.classList.toggle('visibility');
-        addButton.textContent = noteField.classList.contains('visibility') ? 
-            '╋ Add Note' : 'Close';
+//   Add notes
+  addButton.addEventListener("click", () => {
+    addButton.innerText = noteField.classList.contains("visibility")
+      ? "╋ Add Note"
+      : "Close";
+  });
+
+//   Save notes
+  saveButton.addEventListener("click", (e) => {
+    e.preventDefault();
+    createNotesManager();
+  });
+
+  function createNotesManager() {
+    if (noteContent.value === "") {
+      alert("Please provide the content.");
+      softReset();
+      return;
+    } else if (noteTitle.value === "") {
+      alert("Please provide a title for your notes.");
+      softReset();
+      return;
+    }
+
+    const noteObject = {
+      id: Date.now(),
+      title: noteTitle.value.trim(),
+      text: noteContent.value.trim(),
+    };
+
+    storeNotes.push(noteObject);
+    updateLocalStorage();
+    updateDOM(noteObject);
+    // Reset form
+    hardReset();
+  }
+
+  function updateDOM(note) {
+    const li = document.createElement("li");
+    const contentDiv = document.createElement("div");
+    const h3 = document.createElement("h3");
+    const p = document.createElement("p");
+    const noteAction = document.createElement("div");
+    const editButton = document.createElement("button");
+    const deleteButton = document.createElement("button");
+
+    // Assign Classes
+    li.classList.add("new-note");
+    contentDiv.classList.add("note-content");
+    h3.classList.add("note-title");
+    p.classList.add("note-text");
+    noteAction.classList.add("note-actions");
+    editButton.classList.add("edit-btn");
+    deleteButton.classList.add("delete-btn");
+
+    // Set Content
+    h3.innerText = note.title;
+    p.innerText = note.text;
+    editButton.innerText = "Edit";
+    deleteButton.innerText = "Delete";
+
+    contentDiv.append(h3, p);
+    noteAction.append(editButton, deleteButton);
+    li.append(contentDiv, noteAction);
+    ul.appendChild(li);
+
+    editButton.addEventListener("click", () => {
+      noteTitle.focus();
+      noteTitle.value = note.title;
+      noteContent.value = note.text;
+      storeNotes = storeNotes.filter((item) => item.id !== note.id);
+      updateLocalStorage();
+      li.remove();
+      noteField.classList.remove("visibility");
+      addButton.innerText = "Close";
     });
 
-    // Save new note
-    saveButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        createNoteManager();
+    deleteButton.addEventListener("click", () => {
+      storeNotes = storeNotes.filter((item) => item.id !== note.id);
+      updateLocalStorage();
+      li.remove();
     });
+  }
 
-    function createNoteManager() {
-        if (noteTitle.value.trim() === '' || noteText.value.trim() === '') {
-            alert('Please enter both title and content');
-            return;
-        }
+  function updateLocalStorage() {
+    localStorage.setItem("notes", JSON.stringify(storeNotes));
+  }
 
-        const note = {
-            id: Date.now().toString(),
-            title: noteTitle.value.trim(),
-            content: noteText.value.trim()
-        };
+  function softReset() {
+    noteTitle.value = "";
+    noteContent.value = "";
+  }
 
-        noteList.push(note);
-        updateLocalStorage();
-        addNoteDOM(note);
-
-        // Reset form
-        noteTitle.value = '';
-        noteText.value = '';
-        noteField.classList.add('visibility');
-        addButton.textContent = '╋ Add Note';
-    }
-
-    function addNoteDOM(note) {
-        const listItem = document.createElement('li');
-        const noteContentDiv = document.createElement('div');
-        const noteTitleh3 = document.createElement('h3');
-        const text = document.createElement('p');
-        const noteActionDiv = document.createElement('div');
-        const editBtn = document.createElement('button');
-        const deleteBtn = document.createElement('button');
-
-        // Assign Classes
-        noteContentDiv.classList.add('note-content');
-        noteTitleh3.classList.add('note-title');
-        text.classList.add('note-text');
-        noteActionDiv.classList.add('note-actions');
-        editBtn.classList.add('edit-btn');
-        deleteBtn.classList.add('delete-btn');
-
-        // Set content
-        noteTitleh3.textContent = note.title;
-        text.textContent = note.content;
-
-        // Set button text
-        editBtn.textContent = 'Edit';
-        deleteBtn.textContent = 'Delete';
-
-        // Add event listeners
-        deleteBtn.addEventListener('click', () => {
-            noteList = noteList.filter(item => item.id !== note.id);
-            updateLocalStorage();
-            listItem.remove();
-        });
-
-        editBtn.addEventListener('click', () => {
-            noteTitle.value = note.title;
-            noteText.value = note.content;
-            noteList = noteList.filter(item => item.id !== note.id);
-            updateLocalStorage();
-            listItem.remove();
-            noteField.classList.remove('visibility');
-            addButton.textContent = 'Close';
-        });
-
-        // Build DOM structure
-        noteContentDiv.append(noteTitleh3, text);
-        noteActionDiv.append(editBtn, deleteBtn);
-        listItem.append(noteContentDiv, noteActionDiv);
-        ul.appendChild(listItem);
-    }
-
-    function updateLocalStorage() {
-        localStorage.setItem('notes', JSON.stringify(noteList));
-    }
+  function hardReset() {
+    softReset();
+    noteField.classList.add("visibility");
+    addButton.innerText = "╋ Add Note";
+  }
 });
