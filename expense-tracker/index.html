@@ -1,47 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense tracker</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expense tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
   <div class="container">
-    <h1>Expense Tracker</h1>
-    
+    <h1>💰 Expense Tracker</h1>
+
     <div class="balance">
-      <h3>Balance:</h3>
+      <h3>Current Balance</h3>
       <h2 id="balance">$0.00</h2>
     </div>
 
     <div class="summary">
       <div class="income">
-        <h4>Income</h4>
+        <h4>💚 Total Income</h4>
         <p id="income" class="money plus">+$0.00</p>
       </div>
       <div class="expense">
-        <h4>Expense</h4>
+        <h4>❤️ Total Expenses</h4>
         <p id="expense" class="money minus">-$0.00</p>
       </div>
     </div>
 
-    <h3>Add New Transaction</h3>
-    <form id="form">
-      <input type="text" id="text" placeholder="Enter description" required />
-      <input type="number" id="amount" placeholder="Enter amount (use - for expense)" required />
-      <button type="submit">Add Transaction</button>
-    </form>
+    <div class="stats">
+      <div class="stat-card">
+        <h4>Transactions</h4>
+        <div class="stat-value" id="transactionCount">0</div>
+      </div>
+      <div class="stat-card">
+        <h4>Average Transaction</h4>
+        <div class="stat-value" id="avgTransaction">$0.00</div>
+      </div>
+    </div>
 
-    <h3>Transaction History</h3>
-    <ul id="list" class="list">
-      <!-- Transactions will appear here -->
-    </ul>
+    <div class="form-section">
+      <h3>➕ Add New Transaction</h3>
+      <form id="form">
+        <div class="form-row">
+          <input type="text" id="text" placeholder="Enter description" required />
+          <select id="category" required>
+            <option value="">Select Category</option>
+            <option value="food">🍔 Food</option>
+            <option value="transport">🚗 Transport</option>
+            <option value="entertainment">🎬 Entertainment</option>
+            <option value="shopping">🛍️ Shopping</option>
+            <option value="bills">💡 Bills</option>
+            <option value="salary">💼 Salary</option>
+            <option value="freelance">💻 Freelance</option>
+            <option value="investment">📈 Investment</option>
+            <option value="other">❓ Other</option>
+          </select>
+        </div>
+        <input type="number" id="amount" placeholder="Enter amount (+ for income, - for expense)" step="0.01"
+          required />
+        <button type="submit">Add Transaction</button>
+      </form>
+    </div>
+
+    <div class="history-section">
+      <h3>📊 Transaction History</h3>
+      <div class="filter-sort">
+        <select id="filterCategory">
+          <option value="all">All Categories</option>
+          <option value="food">🍔 Food</option>
+          <option value="transport">🚗 Transport</option>
+          <option value="entertainment">🎬 Entertainment</option>
+          <option value="shopping">🛍️ Shopping</option>
+          <option value="bills">💡 Bills</option>
+          <option value="salary">💼 Salary</option>
+          <option value="freelance">💻 Freelance</option>
+          <option value="investment">📈 Investment</option>
+          <option value="other">❓ Other</option>
+        </select>
+        <select id="sortBy">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="highest">Highest Amount</option>
+          <option value="lowest">Lowest Amount</option>
+        </select>
+      </div>
+      <ul id="list" class="list">
+        <!-- Transactions will appear here -->
+      </ul>
+    </div>
   </div>
 
   <script src="./index.js" charset="UTF-8"></script>
 </body>
+
 </html>
