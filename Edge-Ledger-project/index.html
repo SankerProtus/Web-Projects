@@ -3,287 +3,701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <title>TechEdu Academy - Professional Computer Science Education</title>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet" href="./utility.css">
-    <title>Welcome to EdgeLedger</title>
 </head>
 <body>
-    <header id="hero">
-        <div class="navbar">
-            <h1>
-                <span class="text-primary"><i class="fas fa-book-open"></i>Edge</span>Ledger
-            </h1>
-
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Cases</a></li>
-                    <li><a href="#">Blog</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
-
-            <a href="#" class="btn btn-up">Sign Up</a>
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            
+            <div class="modal-header">
+                <h2>Welcome to TechEdu Academy</h2>
+                <p>Access your account</p>
+            </div>
+            
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Sign In</button>
+                    <button class="tab-btn" data-tab="register">Sign Up</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="login" class="tab-content active">
+                    <form>
+                        <div class="form-group">
+                            <input type="email" id="loginEmail" placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="loginPassword" placeholder="Password" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="userType" required>
+                                <option value="">Select your role</option>
+                                <option value="student">Student</option>
+                                <option value="admin">Administrator</option>
+                                <option value="faculty">Faculty</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-auth">Sign In</button>
+                        <a href="#" class="forgot-link">Forgot password?</a>
+                    </form>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="register" class="tab-content">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" id="regName" placeholder="Full name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" id="regEmail" placeholder="Email address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="regPassword" placeholder="Create password" required>
+                        </div>
+                        <div class="form-group">
+                            <select id="regUserType" required>
+                                <option value="">I am a...</option>
+                                <option value="student">Student</option>
+                                <option value="faculty">Faculty</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-auth">Create Account</button>
+                    </form>
+                </div>
+            </div>
         </div>
+    </div>
 
-        <div class="content">
-            <h1 class="SlideInTop">The Sky The Limit</h1>
-            <p class="SlideInLeft">We provide first class assistance</p>
-            <a href="#" class="btn SlideInLeft"><i class="fas fa-chevron-right"></i>
-                Read More</a>
+    <header>
+        <nav class="main-nav">
+            <div class="nav-container">
+                <div class="logo-section">
+                    <div class="school-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h1>TechEdu Academy</h1>
+                    </div>
+                </div>
+                
+                <div class="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="#home" class="nav-link">Home</a></li>
+                        <li><a href="#about" class="nav-link">About</a></li>
+                        <li><a href="#programs" class="nav-link">Programs</a></li>
+                        <li><a href="#admissions" class="nav-link">Admissions</a></li>
+                        <li><a href="#faculty" class="nav-link">Faculty</a></li>
+                        <li><a href="#student-portal" class="nav-link">Student Portal</a></li>
+                        <li><a href="#admin-portal" class="nav-link">Admin Portal</a></li>
+                    </ul>
+                </div>
+                
+                <div class="auth-section">
+                    <button class="btn btn-login-trigger">Login</button>
+                    <button class="btn btn-outline">Apply Now</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Quick Access Bar -->
+        <div class="quick-access-bar">
+            <div class="quick-access-content">
+                <p><i class="fas fa-bell"></i> New Semester Registration Open - Application Deadline: March 15th, 2025</p>
+                <a href="#admissions" class="quick-link">Apply Now</a>
+            </div>
         </div>
     </header>
 
+    <!-- Main Showcase -->
     <main>
-        <!-- About Icons -->
-        <section id="about" class="icons bg-light">
-            <div class="flex-items">
-                <div>
-                    <i class="fas fa-university fa-2x"></i>
-                    <div>
-                        <h3>Investment Banking</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Ratione harum pariatur libero. Eveniet, iusto quo! Lorem ipsum dolor sit amet.
-                        </p>
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Welcome to TechEdu Academy</h1>
+                    <p class="hero-subtitle">Shaping Tomorrow's Technology Leaders Through Excellence in Computer Science Education</p>
+                    <p class="hero-description">Join our comprehensive computer science programs designed to prepare you for the evolving technology landscape. With world-class faculty, cutting-edge facilities, and industry partnerships.</p>
+                    <div class="hero-buttons">
+                        <a href="#programs" class="btn btn-primary"><i class="fas fa-arrow-right"></i>Explore Programs</a>
+                        <a href="#virtual-tour" class="btn btn-outline"><i class="fas fa-play"></i>Virtual Tour</a>
                     </div>
                 </div>
-
-                <div>
-                    <i class="fas fa-book-reader fa-2x"></i>
-                    <div>
-                        <h3>Portfolio Management</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Ratione harum pariatur libero. Eveniet, iusto quo! Lorem ipsum dolor sit amet.
-                        </p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5,000+</div>
+                        <div class="stat-label">Students Enrolled</div>
                     </div>
-                </div>
-
-                <div>
-                    <i class="fas fa-pencil-alt fa-2x"></i>
-                    <div>
-                        <h3>Tax & Custody</h3>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                        Ratione harum pariatur libero. Eveniet, iusto quo! Lorem ipsum dolor sit amet.
-                        </p>
+                    <div class="stat-item">
+                        <div class="stat-number">150+</div>
+                        <div class="stat-label">Expert Faculty</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Job Placement Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Industry Partners</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Solutions -->
-        <section id="solutions" class="flex-columns">
-            <div class="row">
-                <div class="column">
-                    <div class="column-1">
-                        <img src="./images/hero-bg.jpg" alt="showcase Image">
-                    </div>
+        <!-- Programs Section -->
+        <section id="programs" class="programs-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Our Academic Programs</h2>
+                    <p>Choose from our comprehensive range of computer science programs designed to meet industry demands</p>
                 </div>
-                
-                <div class="column">
-                    <div class="column-2 bg-primary">
-                        <h4>What you are looking for</h4>
-                        <h2>We provide bespoke solution</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Quae natus animi ab maxime. Distinctio culpa dolores perspiciatis 
-                            sapiente aut adipisci! Exercitationem labore quam, molestiae illum 
-                            ea officia natus perferendis autem?
-                        </p>
-                        <a href="#" class="btn btn-outline">
-                            <i class="fas fa-chevron-right"></i>
-                            Read More
-                        </a>
+                <div class="programs-grid">
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>Software Engineering</h3>
+                        <p>Master the art of building scalable software systems with modern development practices and methodologies.</p>
+                        <div class="program-details">
+                            <span class="duration">4 Years</span>
+                            <span class="degree">Bachelor's Degree</span>
+                        </div>
+                        <a href="#" class="btn btn-program">Learn More</a>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>Artificial Intelligence</h3>
+                        <p>Explore machine learning, deep learning, and AI technologies that are shaping the future.</p>
+                        <div class="program-details">
+                            <span class="duration">4 Years</span>
+                            <span class="degree">Bachelor's Degree</span>
+                        </div>
+                        <a href="#" class="btn btn-program">Learn More</a>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Cybersecurity</h3>
+                        <p>Protect digital assets and learn advanced security techniques in our comprehensive cybersecurity program.</p>
+                        <div class="program-details">
+                            <span class="duration">4 Years</span>
+                            <span class="degree">Bachelor's Degree</span>
+                        </div>
+                        <a href="#" class="btn btn-program">Learn More</a>
+                    </div>
+                    <div class="program-card">
+                        <div class="program-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Data Science</h3>
+                        <p>Transform data into insights with advanced analytics, machine learning, and statistical methods.</p>
+                        <div class="program-details">
+                            <span class="duration">4 Years</span>
+                            <span class="degree">Bachelor's Degree</span>
+                        </div>
+                        <a href="#" class="btn btn-program">Learn More</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Cases -->
-         <section id="cases" class="flex-grid">
-            <header class="section-header">
-                <h4>This is what we do</h4>
-                <h2>Business Cases</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Quis, at?
-                </p>
-            </header>
-
-            <div class="row">
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf1.jpg" target="_blank"><img src="./images/pf1.jpg" alt="image"></a>
-                    </div>
-                    <div class="desc">
-                        Add a description of the image here
-                    </div>
+        <!-- Student Portal Section -->
+        <section id="student-portal" class="portal-section">
+            <div class="container">
+                <div class="portal-header">
+                    <h2><i class="fas fa-user-graduate"></i> Student Portal</h2>
+                    <p>Access your academic resources, grades, schedules, and more</p>
                 </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf1.jpg" target="_blank"><img src="./images/pf1.jpg" alt="image"></a>
+                <div class="portal-grid">
+                    <div class="portal-card">
+                        <div class="portal-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Class Schedule</h3>
+                        <p>View your daily class schedule, room assignments, and instructor information.</p>
+                        <div class="portal-stats">
+                            <span>Next Class: CS-301 at 2:00 PM</span>
+                        </div>
+                        <a href="#" class="btn btn-portal">View Schedule</a>
                     </div>
-                    <div class="desc">
-                        Add a description of the image here
+                    <div class="portal-card">
+                        <div class="portal-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Grades & Progress</h3>
+                        <p>Track your academic performance, view grades, and monitor your GPA.</p>
+                        <div class="portal-stats">
+                            <span>Current GPA: 3.8/4.0</span>
+                        </div>
+                        <a href="#" class="btn btn-portal">View Grades</a>
                     </div>
-                </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf1.jpg" target="_blank"><img src="./images/pf1.jpg" alt="image"></a>
+                    <div class="portal-card">
+                        <div class="portal-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <h3>Course Materials</h3>
+                        <p>Access lecture notes, assignments, and supplementary learning resources.</p>
+                        <div class="portal-stats">
+                            <span>5 New Materials Available</span>
+                        </div>
+                        <a href="#" class="btn btn-portal">Access Materials</a>
                     </div>
-                    <div class="desc">
-                        Add a description of the image here
+                    <div class="portal-card">
+                        <div class="portal-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <h3>Assignments</h3>
+                        <p>Submit assignments, view feedback, and track submission deadlines.</p>
+                        <div class="portal-stats">
+                            <span>3 Pending Assignments</span>
+                        </div>
+                        <a href="#" class="btn btn-portal">View Assignments</a>
                     </div>
-                </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf1.jpg" target="_blank"><img src="./images/pf1.jpg" alt="image"></a>
+                    <div class="portal-card">
+                        <div class="portal-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Study Groups</h3>
+                        <p>Join study groups, collaborate with peers, and participate in discussions.</p>
+                        <div class="portal-stats">
+                            <span>12 Active Groups</span>
+                        </div>
+                        <a href="#" class="btn btn-portal">Join Groups</a>
                     </div>
-                    <div class="desc">
-                        Add a description of the image here
-                    </div>
-                </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf2.jpg" target="_blank"><img src="./images/pf2.jpg" alt="image"></a>
-                    </div>
-                    <div class="desc">
-                        Add a description of the image here
-                    </div>
-                </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf3.jpg" target="_blank"><img src="./images/pf3.jpg" alt="image"></a>
-                    </div>
-                    <div class="desc">
-                        Add a description of the image here
-                    </div>
-                </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/signup-bg.jpg" target="_blank"><img src="./images/signup-bg.jpg" alt="image"></a>
-                    </div>
-                    <div class="desc">
-                        Add a description of the image here
-                    </div>
-                </div>
-                <div class="gallery">
-                    <div>
-                        <a href="./images/pf1.jpg" target="_blank"><img src="./images/pf1.jpg" alt="image"></a>
-                    </div>
-                    <div class="desc">
-                        Add a description of the image here
+                    <div class="portal-card">
+                        <div class="portal-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Career Services</h3>
+                        <p>Access internship opportunities, job postings, and career counseling.</p>
+                        <div class="portal-stats">
+                            <span>25 New Job Postings</span>
+                        </div>
+                        <a href="#" class="btn btn-portal">Explore Careers</a>
                     </div>
                 </div>
             </div>
-            <div>
+        </section>
+
+        <!-- Admin Portal Section -->
+        <section id="admin-portal" class="portal-section admin-section">
+            <div class="container">
+                <div class="portal-header">
+                    <h2><i class="fas fa-cog"></i> Administrative Portal</h2>
+                    <p>Comprehensive management tools for academic and administrative operations</p>
+                </div>
+                <div class="admin-dashboard">
+                    <div class="dashboard-summary">
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="summary-content">
+                                <h3>5,247</h3>
+                                <p>Total Students</p>
+                                <span class="change positive">+12% from last semester</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <div class="summary-content">
+                                <h3>152</h3>
+                                <p>Faculty Members</p>
+                                <span class="change positive">+5 new hires</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="summary-content">
+                                <h3>87</h3>
+                                <p>Active Courses</p>
+                                <span class="change neutral">Current semester</span>
+                            </div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="summary-content">
+                                <h3>$2.1M</h3>
+                                <p>Revenue This Quarter</p>
+                                <span class="change positive">+8% vs last quarter</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-tools-grid">
+                        <div class="admin-tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h3>Student Management</h3>
+                            <p>Manage student enrollment, records, and academic progress tracking.</p>
+                            <div class="tool-actions">
+                                <a href="#" class="btn btn-tool">Add Student</a>
+                                <a href="#" class="btn btn-tool-secondary">View All</a>
+                            </div>
+                        </div>
+                        <div class="admin-tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h3>Faculty Management</h3>
+                            <p>Handle faculty recruitment, assignments, and performance evaluations.</p>
+                            <div class="tool-actions">
+                                <a href="#" class="btn btn-tool">Add Faculty</a>
+                                <a href="#" class="btn btn-tool-secondary">Manage</a>
+                            </div>
+                        </div>
+                        <div class="admin-tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h3>Course Scheduling</h3>
+                            <p>Create and manage course schedules, room assignments, and timetables.</p>
+                            <div class="tool-actions">
+                                <a href="#" class="btn btn-tool">Schedule Course</a>
+                                <a href="#" class="btn btn-tool-secondary">View Schedule</a>
+                            </div>
+                        </div>
+                        <div class="admin-tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <h3>Financial Management</h3>
+                            <p>Track tuition payments, financial aid, and budget allocations.</p>
+                            <div class="tool-actions">
+                                <a href="#" class="btn btn-tool">View Finances</a>
+                                <a href="#" class="btn btn-tool-secondary">Reports</a>
+                            </div>
+                        </div>
+                        <div class="admin-tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h3>Analytics & Reports</h3>
+                            <p>Generate comprehensive reports and analyze institutional performance.</p>
+                            <div class="tool-actions">
+                                <a href="#" class="btn btn-tool">Generate Report</a>
+                                <a href="#" class="btn btn-tool-secondary">Analytics</a>
+                            </div>
+                        </div>
+                        <div class="admin-tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>System Settings</h3>
+                            <p>Configure system preferences, user permissions, and security settings.</p>
+                            <div class="tool-actions">
+                                <a href="#" class="btn btn-tool">Settings</a>
+                                <a href="#" class="btn btn-tool-secondary">Security</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+         <!-- Faculty Section -->
+         <section id="faculty" class="faculty-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Meet Our Distinguished Faculty</h2>
+                    <p>Learn from world-class educators and researchers who are leaders in their fields</p>
+                </div>
+                <div class="faculty-grid">
+                    <div class="faculty-card">
+                        <div class="faculty-photo">
+                            <img src="./images/author2.jpg" alt="Dr. Robert Wilson" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="faculty-placeholder" style="display: none;">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. Robert Wilson</h3>
+                            <div class="faculty-title">Professor & Department Head</div>
+                            <div class="faculty-education">Ph.D. in Computer Science, MIT</div>
+                            <p>Leading expert in artificial intelligence and machine learning with over 20 years of research experience. Published 150+ papers and holds 15 patents.</p>
+                            <div class="faculty-specializations">
+                                <span class="specialization">Artificial Intelligence</span>
+                                <span class="specialization">Machine Learning</span>
+                                <span class="specialization">Neural Networks</span>
+                            </div>
+                            <div class="faculty-contact">
+                                <a href="mailto:r.wilson@techedu.edu"><i class="fas fa-envelope"></i> r.wilson@techedu.edu</a>
+                                <a href="tel:+15551234567"><i class="fas fa-phone"></i> +1 (555) 123-4567</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faculty-card">
+                        <div class="faculty-photo">
+                            <img src="./images/author3.jpg" alt="Dr. Jennifer Martinez" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="faculty-placeholder" style="display: none;">
+                                <i class="fas fa-female"></i>
+                            </div>
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Dr. Jennifer Martinez</h3>
+                            <div class="faculty-title">Associate Professor</div>
+                            <div class="faculty-education">Ph.D. in Cybersecurity, Stanford</div>
+                            <p>Former Google security engineer specializing in cybersecurity and distributed systems. Expert in blockchain technology and cryptography.</p>
+                            <div class="faculty-specializations">
+                                <span class="specialization">Cybersecurity</span>
+                                <span class="specialization">Blockchain</span>
+                                <span class="specialization">Cryptography</span>
+                            </div>
+                            <div class="faculty-contact">
+                                <a href="mailto:j.martinez@techedu.edu"><i class="fas fa-envelope"></i> j.martinez@techedu.edu</a>
+                                <a href="tel:+15552345678"><i class="fas fa-phone"></i> +1 (555) 234-5678</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="faculty-card">
+                        <div class="faculty-photo">
+                            <img src="./images/testimonials-3.jpg" alt="Prof. David Thompson" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="faculty-placeholder" style="display: none;">
+                                <i class="fas fa-user-graduate"></i>
+                            </div>
+                        </div>
+                        <div class="faculty-info">
+                            <h3>Prof. David Thompson</h3>
+                            <div class="faculty-title">Professor of Data Science</div>
+                            <div class="faculty-education">Ph.D. in Statistics, UC Berkeley</div>
+                            <p>Former chief data scientist at Meta with expertise in big data analytics, statistical modeling, and data visualization techniques.</p>
+                            <div class="faculty-specializations">
+                                <span class="specialization">Data Science</span>
+                                <span class="specialization">Big Data</span>
+                                <span class="specialization">Statistics</span>
+                            </div>
+                            <div class="faculty-contact">
+                                <a href="mailto:d.thompson@techedu.edu"><i class="fas fa-envelope"></i> d.thompson@techedu.edu</a>
+                                <a href="tel:+15553456789"><i class="fas fa-phone"></i> +1 (555) 345-6789</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
          </section>
 
-         <!-- Blog -->
-         <section id="blog" class="blog flex-columns flex-reverse">
-            <div class="row">
-                <div class="column">
-                    <div class="column-1">
-                        <img src="./images/testi-bg.jpg" alt="Image">
+         <!-- Admissions Section -->
+         <section id="admissions" class="admissions-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Admissions Information</h2>
+                    <p>Start your journey towards a rewarding career in technology</p>
+                </div>
+                <div class="admissions-content">
+                    <div class="admission-process">
+                        <h3>Application Process</h3>
+                        <div class="process-steps">
+                            <div class="step">
+                                <div class="step-number">1</div>
+                                <div class="step-content">
+                                    <h4>Submit Application</h4>
+                                    <p>Complete our online application form with personal and academic information.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">2</div>
+                                <div class="step-content">
+                                    <h4>Document Submission</h4>
+                                    <p>Upload transcripts, recommendation letters, and statement of purpose.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">3</div>
+                                <div class="step-content">
+                                    <h4>Entrance Exam</h4>
+                                    <p>Take our standardized entrance examination for program eligibility.</p>
+                                </div>
+                            </div>
+                            <div class="step">
+                                <div class="step-number">4</div>
+                                <div class="step-content">
+                                    <h4>Interview</h4>
+                                    <p>Participate in a personal interview with our admissions committee.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="column">
-                    <div class="column-2 bg-secondary">
-                        <h4>April 26 2004</h4>
-                        <h2>Blog Post</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-                            Quae natus animi ab maxime. Distinctio culpa dolores perspiciatis 
-                            sapiente aut adipisci! Exercitationem labore quam, molestiae illum 
-                            ea officia natus perferendis autem?
-                        </p>
-                        <a href="#" class="btn btn-outline">
-                            <i class="fas fa-chevron-right"></i>
-                            Read Our Blog
-                        </a>
+                    
+                    <div class="admission-requirements">
+                        <h3>Requirements</h3>
+                        <div class="requirements-grid">
+                            <div class="requirement-card">
+                                <h4>Academic Requirements</h4>
+                                <ul>
+                                    <li>High school diploma or equivalent</li>
+                                    <li>Minimum GPA of 3.0</li>
+                                    <li>Mathematics and Science prerequisites</li>
+                                    <li>English proficiency (for international students)</li>
+                                </ul>
+                            </div>
+                            <div class="requirement-card">
+                                <h4>Required Documents</h4>
+                                <ul>
+                                    <li>Official transcripts</li>
+                                    <li>Two letters of recommendation</li>
+                                    <li>Statement of purpose</li>
+                                    <li>Portfolio (for certain programs)</li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team -->
-        <section id="team">
-            <header class="section-header">
-                <h4>Who we are</h4>
-                <h2>Our Professional Team</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                    Quis, at?
-                </p>
-            </header>
-            <div class="flex-items">
-                <div>
-                    <img src="./images/testimonials-5.jpg" alt="team1" class="rounded-img">
-                    <h4>Sanker Protus</h4>
-                    <p>President</p>
-                </div>
-                <div>
-                    <img src="./images/testimonials-3.jpg" alt="team1">
-                    <h4>Sanker Portia</h4>
-                    <p>Vice President</p>
-                </div>
-                <div>
-                    <img src="./images/author3.jpg" alt="team1">
-                    <h4>Sanker Prolina</h4>
-                    <p>Accountant</p>
-                </div>
-                <div>
-                    <img src="./images/author2.jpg" alt="team1">
-                    <h4>Sanker Bernard</h4>
-                    <p>Secretary</p>
                 </div>
             </div>
          </section>
 
-         <!-- Callback Form -->
-         <section id="callback" class="callback flex-columns">
-            <div class="row">
-                <div class="column">
-                    <div class="column-1">
-                        <img src="./images/hero-bg.jpg" alt="Image">
+         <!-- Campus Life Section -->
+         <section class="campus-life-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Campus Life & Activities</h2>
+                    <p>Experience a vibrant campus community with numerous opportunities for growth and engagement</p>
+                </div>
+                <div class="activities-grid">
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3>Coding Competitions</h3>
+                        <p>Participate in hackathons, programming contests, and coding challenges to test your skills.</p>
+                        <div class="activity-meta">
+                            <span class="participants">200+ Participants</span>
+                            <span class="frequency">Monthly Events</span>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Tech Clubs</h3>
+                        <p>Join specialized clubs focused on AI, robotics, cybersecurity, and web development.</p>
+                        <div class="activity-meta">
+                            <span class="participants">15+ Active Clubs</span>
+                            <span class="frequency">Weekly Meetings</span>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3>Industry Workshops</h3>
+                        <p>Attend workshops led by industry professionals and learn about latest technology trends.</p>
+                        <div class="activity-meta">
+                            <span class="participants">50+ Companies</span>
+                            <span class="frequency">Bi-weekly</span>
+                        </div>
+                    </div>
+                    <div class="activity-card">
+                        <div class="activity-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>Research Projects</h3>
+                        <p>Collaborate with faculty on cutting-edge research projects and publish your findings.</p>
+                        <div class="activity-meta">
+                            <span class="participants">100+ Projects</span>
+                            <span class="frequency">Ongoing</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </section>
+     </main>
+
+     <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>TechEdu Academy</h3>
+                    </div>
+                    <p>Shaping tomorrow's technology leaders through excellence in computer science education and innovative research.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 
-                <div class="column">
-                    <div class="column-2 bg-light">
-                        <h2>Request a Callback</h2>
-                        <form action="" class="callback-form">
-                            <div class="form-control">
-                                <label for="name" id="name" placeholder="Enter your name">Name</label>
-                                <input type="text" class="name" id="name">
-                            </div>
-                            <div class="form-control">
-                                <label for="email" id="email" placeholder="Enter email">Email</label>
-                                <input type="email" class="email" id="email">
-                            </div>
-                            <div class="form-control">
-                                <label for="phone" id="phone" placeholder="Enter Phone Number">Phone Number</label>
-                                <input type="text" class="phone" id="phone">
-                            </div>
-                            <input type="submit" value="Send Request" id="submit" class="btn">
+                <div class="footer-section">
+                    <h4>Academic Programs</h4>
+                    <ul>
+                        <li><a href="#programs">Software Engineering</a></li>
+                        <li><a href="#programs">Artificial Intelligence</a></li>
+                        <li><a href="#programs">Cybersecurity</a></li>
+                        <li><a href="#programs">Data Science</a></li>
+                        <li><a href="#programs">Graduate Programs</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Student Resources</h4>
+                    <ul>
+                        <li><a href="#student-portal">Student Portal</a></li>
+                        <li><a href="#">Library</a></li>
+                        <li><a href="#">Career Services</a></li>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Student Support</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Admissions</h4>
+                    <ul>
+                        <li><a href="#admissions">Application Process</a></li>
+                        <li><a href="#admissions">Requirements</a></li>
+                        <li><a href="#">Scholarships</a></li>
+                        <li><a href="#">Financial Aid</a></li>
+                        <li><a href="#">Campus Tours</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Tech Avenue, Silicon Valley, CA 94025</p>
+                        <p><i class="fas fa-phone"></i> +1 (555) 123-TECH</p>
+                        <p><i class="fas fa-envelope"></i> info@techedu.edu</p>
+                    </div>
+                    <div class="newsletter">
+                        <h5>Newsletter</h5>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email address" required>
+                            <button type="submit" class="btn btn-newsletter">Subscribe</button>
                         </form>
                     </div>
                 </div>
             </div>
-        </section>
-    </main>
-
-    <footer class="bg-dark">
-        <div class="media-icons">
-            <a href="#"><i class="fab fa-instagram fa-2x"></i></a>
-            <a href="#"><i class="fab fa-facebook fa-2x"></i></a>
-            <a href="#"><i class="fab fa-twitter fa-2x"></i></a>
-            <a href="#"><i class="fab fa-whatsapp fa-2x"></i></a>
-            <a href="#"><i class="fab fa-x fa-2x" ></i></a>
+            
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 TechEdu Academy. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Accessibility</a>
+                        <a href="#">Site Map</a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <p>&copy; 2025 EdgeLedger | All Right Reserved</p>
     </footer>
+    
+    <script src="./script.js"></script>
 </body>
 </html>
