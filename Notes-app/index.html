@@ -1,37 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Note App</title>
+    <title>Notes App - Organize Your Thoughts</title>
+    <meta name="description" content="A simple, elegant notes app to organize your thoughts and ideas">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="./styles.css">
 </head>
+
 <body>
     <main id="container">
-        <div class="heading">
-            <h1>Note App Logo</h1>
-        </div>
+        <header class="app-header">
+            <div class="heading">
+                <h1>📝 Notes App</h1>
+                <p>Organize your thoughts</p>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" id="search-input" placeholder="🔍 Search notes..." aria-label="Search notes">
+            </div>
+        </header>
 
         <div class="add-btn">
-           <button type="button" id="add-note" class="btn" title="Add a new note"><span class="icon">╋</span>Add Note</button>
+            <button type="button" id="add-note" class="btn btn-primary" title="Add a new note">
+                <span class="icon">╋</span>Add Note
+            </button>
         </div>
 
-    <form class="note-input visibility">
-        <label for="note-title">Title</label>
-        <input type="text" id="note-title" placeholder="Note title" />
-        <label for="note-text">Content</label>
-        <textarea id="note-text" rows="4" placeholder="Write your note..."></textarea>
-        <button type="submit" id="save-note" class="btn">Save Note</button>
-    </form>
+        <form class="note-input visibility" aria-label="Note creation form">
+            <div class="form-group">
+                <label for="note-title">Title *</label>
+                <input type="text" id="note-title" placeholder="Enter note title..." maxlength="100" required />
+                <small class="char-count" id="title-count">0/100</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="note-text">Content *</label>
+                <textarea id="note-text" rows="6" placeholder="Write your note content..." maxlength="5000" required></textarea>
+                <small class="char-count" id="content-count">0/5000</small>
+            </div>
+            
+            <div class="form-actions">
+                <button type="submit" id="save-note" class="btn btn-success">Save Note</button>
+                <button type="button" id="cancel-note" class="btn btn-secondary">Cancel</button>
+            </div>
+        </form>
 
-        <ul id="notes" class="notes">
-            <!-- Notes will be added dynamically -->
-        </ul>
+        <section class="notes-section" aria-label="Your notes">
+            <ul id="notes" class="notes">
+                <!-- Notes will be added dynamically -->
+            </ul>
+        </section>
     </main>
+
+    <!-- Notification container -->
+    <div id="notification-container"></div>
 
     <script src="index.js"></script>
 </body>
+
 </html>
