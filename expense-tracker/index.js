@@ -1,19 +1,25 @@
-// Select elements
+// Get DOM elements
 const balance = document.getElementById("balance");
 const income = document.getElementById("income");
 const expense = document.getElementById("expense");
 const transactionCount = document.getElementById("transactionCount");
-const avgTransaction = document.getElementById("avgTransaction");
-const list = document.getElementById("list");
-const form = document.getElementById("form");
+const averageTransaction = document.getElementById("avgTransaction");
 const text = document.getElementById("text");
-const amount = document.getElementById("amount");
 const category = document.getElementById("category");
+const amount = document.getElementById("amount");
+const form = document.getElementById("form");
 const filterCategory = document.getElementById("filterCategory");
 const sortBy = document.getElementById("sortBy");
+const list = document.getElementById("list");
+const clearAllBtn = document.getElementById("clearAll");
 
-// Get transactions from memory or initialize empty
+// Initialize empty array to store transaction items
 let transactions = [];
+
+// Load transactions from local storage
+if (localStorage.getItem("transactions")) {
+    transactions = JSON.parse(localStorage.getItem("transactions"));
+}
 
 // Category emojis
 const categoryEmojis = {
@@ -30,152 +36,261 @@ const categoryEmojis = {
 
 // Add transaction
 function addTransaction(e) {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (
-    text.value.trim() === "" ||
-    amount.value.trim() === "" ||
-    category.value === ""
-  ) {
-    alert("Please fill in all fields");
-    return;
-  }
+    // Validate user inputs
+    if (text.value.trim() === "" || category.value === "" || amount.value === "") {
+        alert("Please fill in all fields");
+        return;
+    }
 
-  const transaction = {
-    id: generateID(),
-    text: text.value,
-    amount: +amount.value,
-    category: category.value,
-    date: new Date().toISOString(),
-  };
+    // Validate amount
+    const amountValue = parseFloat(amount.value);
+    if (isNaN(amountValue) || amountValue === 0) {
+        alert("Please enter a valid amount");
+        return;
+    }
 
-  transactions.push(transaction);
-  updateDisplay();
+    // Create a transaction item
+    const transaction = {
+        id: generateID(),
+        text: text.value.trim(),
+        category: category.value,
+        amount: amountValue,
+        date: new Date().toISOString()
+    }
 
-  text.value = "";
-  amount.value = "";
-  category.value = "";
+    // Add created transaction to transaction array
+    transactions.push(transaction);
+
+    // Save to local storage
+    updateLocalStorage();
+
+    // Clear input fields
+    text.value = "";
+    category.value = "";
+    amount.value = "";
+    
+    // Update the display
+    init();
 }
 
-// Generate random ID
+// Generate random number for each transaction created
 function generateID() {
-  return Date.now() + Math.random();
+    return Math.floor(Math.random() * 1000000);
 }
 
-// Get filtered and sorted transactions
-function getFilteredTransactions() {
-  let filtered = transactions;
+// Filter and sort transaction according to user preference
+function getFilteredTransaction(transactions) {
 
-  // Filter by category
-  if (filterCategory.value !== "all") {
-    filtered = filtered.filter((t) => t.category === filterCategory.value);
-  }
+    // Create a copy to avoid mutating original array
+    let filteredTransactions = [...transactions]; 
 
-  // Sort transactions
-  switch (sortBy.value) {
-    case "newest":
-      filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
-      break;
-    case "oldest":
-      filtered.sort((a, b) => new Date(a.date) - new Date(b.date));
-      break;
-    case "highest":
-      filtered.sort((a, b) => Math.abs(b.amount) - Math.abs(a.amount));
-      break;
-    case "lowest":
-      filtered.sort((a, b) => Math.abs(a.amount) - Math.abs(b.amount));
-      break;
-  }
+    // Filter transactions by category chosen by the user
+    if (filterCategory.value !== "all") {
+        filteredTransactions = filteredTransactions.filter((transaction) => transaction.category === filterCategory.value); 
+    }
 
-  return filtered;
+    // Sort transactions 
+    switch (sortBy.value) {
+        case "newest":
+            filteredTransactions.sort((a, b) => {
+                return new Date(b.date) - new Date(a.date);
+            });
+            break;
+        case "oldest":
+            filteredTransactions.sort((a, b) => {
+                return new Date(a.date) - new Date(b.date);
+            });
+            break;
+        case "highest":
+            filteredTransactions.sort((a, b) => {
+                return Math.abs(b.amount) - Math.abs(a.amount);
+            });
+            break;
+        case "lowest":
+            filteredTransactions.sort((a, b) => {
+                return Math.abs(a.amount) - Math.abs(b.amount);
+            });
+            break;
+        default: 
+            console.log("Something went wrong. Please try again.");
+            break;
+    }
+    
+    return filteredTransactions;
 }
 
 // Add transaction to DOM
 function addTransactionDOM(transaction) {
-  const sign = transaction.amount < 0 ? "-" : "+";
-  const item = document.createElement("li");
+    // Get sign
+    const sign = transaction.amount < 0 ? "-" : "+";
+    const li = document.createElement("li");
 
-  item.classList.add(transaction.amount < 0 ? "minus" : "plus");
+    // Format date
+    const date = new Date(transaction.date);
+    const formattedDate = date.toLocaleDateString('en-US', { 
+        month: 'long', 
+        day: 'numeric', 
+        year: 'numeric' 
+    });
 
-  item.innerHTML = `
-    <div class="transaction-info">
-        <div class="transaction-text">${transaction.text}</div>
-        <div class="transaction-category">${
-          categoryEmojis[transaction.category]
-        } ${transaction.category}</div>
-    </div>
-    <div class="transaction-amount ${
-      transaction.amount < 0 ? "minus" : "plus"
-    }">${sign}$${Math.abs(transaction.amount).toFixed(2)}</div>
-    <button class="delete-btn" onclick="removeTransaction(${
-      transaction.id
-    })">Delete</button>
-`;
+    // Add class based on value
+    li.classList.add(transaction.amount < 0 ? "minus" : "plus");
 
-  list.appendChild(item);
+    li.innerHTML = `
+        <div class="transaction-content">
+            <div class="transaction-main">
+                <span class="transaction-text">${transaction.text}</span>
+                <span class="transaction-amount ${transaction.amount < 0 ? 'minus' : 'plus'}">
+                    ${categoryEmojis[transaction.category]} ${sign}$${Math.abs(transaction.amount)}
+                </span>
+            </div>
+            <div class="transaction-date">${formattedDate}</div>
+        </div>
+        <button class="delete-btn" onclick="removeTransaction(${transaction.id})">Delete</button>
+    `;
+    list.appendChild(li);
 }
 
-// Update all values and display
-function updateDisplay() {
-  updateValues();
-  updateTransactionList();
-  updateStats();
-}
-
-// Update income, expense, and balance
+// Update balance, income, expense, transaction count and average transaction
 function updateValues() {
-  const amounts = transactions.map((t) => t.amount);
-  const total = amounts.reduce((acc, val) => acc + val, 0).toFixed(2);
-  const incomeTotal = amounts
-    .filter((val) => val > 0)
-    .reduce((acc, val) => acc + val, 0)
+    const amounts = transactions
+    .map((transaction) => Number(transaction.amount));
+
+    const total = amounts
+    .reduce((acc, amount) => (acc += amount), 0)
     .toFixed(2);
-  const expenseTotal = (
-    amounts.filter((val) => val < 0).reduce((acc, val) => acc + val, 0) * -1
-  ).toFixed(2);
 
-  balance.innerText = `$${total}`;
-  income.innerText = `+$${incomeTotal}`;
-  expense.innerText = `-$${expenseTotal}`;
-}
+    const totalIncome = amounts
+    .filter((amount) => amount > 0)
+    .reduce((acc, count) => (acc += count), 0)
+    .toFixed(2);
 
-// Update stats
-function updateStats() {
-  const count = transactions.length;
-  const avgAmount =
-    count > 0
-      ? (
-          transactions.reduce((acc, t) => acc + Math.abs(t.amount), 0) / count
-        ).toFixed(2)
-      : "0.00";
+    const totalExpense = (amounts
+        .filter((amount) => amount < 0)
+        .reduce((acc, amount) => (acc += amount), 0) * -1)
+        .toFixed(2);
 
-  transactionCount.innerText = count;
-  avgTransaction.innerText = `$${avgAmount}`;
-}
-
-// Update transaction list
-function updateTransactionList() {
-  list.innerHTML = "";
-  const filtered = getFilteredTransactions();
-
-  if (filtered.length === 0) {
-    list.innerHTML =
-      '<div class="empty-state"><div>📝</div><p>No transactions found</p></div>';
-  } else {
-    filtered.forEach(addTransactionDOM);
-  }
+    const count = transactions.length;
+    const average = (total / count).toFixed(2);
+    balance.innerText = `$${total}`;
+    income.innerText = `$${totalIncome}`;
+    expense.innerText = `$${totalExpense}`;
+    transactionCount.innerText = count;
+    averageTransaction.innerText = `$${isNaN(average) ? 0 : average}`;
 }
 
 // Remove transaction by ID
 function removeTransaction(id) {
-  transactions = transactions.filter((transaction) => transaction.id !== id);
-  updateDisplay();
+    if (confirm("Are you sure you want to delete transaction? This action cannot be undone.")) {
+        transactions = transactions.filter((transaction) => transaction.id !== id);
+        updateLocalStorage();
+        init();
+    }
 }
 
-// Event listeners
-form.addEventListener("submit", addTransaction);
-filterCategory.addEventListener("change", updateTransactionList);
-sortBy.addEventListener("change", updateTransactionList);
+// Get transactions from local storage
+function getTransactionsFromLocalStorage() {
+    const localStorageTransactions = localStorage.getItem('transactions');
+    return localStorageTransactions ? JSON.parse(localStorageTransactions) : [];
+}
 
-// Initial render
-updateDisplay();
+// Update local storage
+function updateLocalStorage() {
+    localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+// Clear all transactions
+function clearAllTransactions() {
+    if (transactions.length === 0) {
+        alert("No transactions to clear!");
+        return;
+    }
+    
+    if (confirm("Are you sure you want to clear all transactions? This action cannot be undone.")) {
+        transactions = [];
+        updateLocalStorage();
+        init();
+    }
+}
+// Initialize app
+function init() {
+    list.innerHTML = "";
+    const filteredTransactions = getFilteredTransaction(transactions);
+    
+    if (filteredTransactions.length === 0) {
+        // Show empty state
+        const emptyState = document.createElement("li");
+        emptyState.className = "empty-state";
+        emptyState.innerHTML = `
+            <div>
+                <p>No transactions found</p>
+                <p style="font-size: 0.9rem; color: #999; margin-top: 5px;">
+                    ${transactions.length === 0 ? 'Add your first transaction above' : 'Try adjusting your filters'}
+                </p>
+            </div>
+        `;
+        list.appendChild(emptyState);
+    } else {
+        filteredTransactions.forEach(addTransactionDOM);
+    }
+    
+    updateValues();
+}
+// Event listeners  
+form.addEventListener("submit", addTransaction);
+filterCategory.addEventListener("change", init);
+sortBy.addEventListener("change", init);
+clearAllBtn.addEventListener("click", clearAllTransactions);
+
+amountInput.addEventListener("input", () => {
+  const numericValue = parseFloat(amountInput.value);
+  if (isNaN(numericValue) || numericValue === 0) {
+    amountInput.setCustomValidity(
+      "Please enter a valid number other than zero."
+    );
+  } else {
+    amountInput.setCustomValidity("");
+  }
+  amountInput.reportValidity();
+});
+
+textInput.addEventListener("input", () => {
+  if (textInput.value.trim() === "") {
+    textInput.setCustomValidity("This field cannot be empty."); 
+  } else {
+    textInput.setCustomValidity("");
+  }
+  textInput.reportValidity();
+});
+
+categoryInput.addEventListener("input", () => {
+  if (categoryInput.value === "") {
+    categoryInput.setCustomValidity("Please select a category."); 
+  } else {
+    categoryInput.setCustomValidity("");
+  } 
+  categoryInput.reportValidity();
+});
+
+// Keyboard shortcuts
+document.addEventListener("keydown", (e) => {
+    // Ctrl/Cmd + Enter to submit form
+    if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+        e.preventDefault();
+        if (text.value.trim() && category.value && amount.value) {
+            form.dispatchEvent(new Event('submit'));
+        }
+    }
+    
+    // Escape to clear form
+    if (e.key === "Escape") {
+        text.value = "";
+        category.value = "";
+        amount.value = "";
+        text.focus();
+    }
+});
+
+init();
