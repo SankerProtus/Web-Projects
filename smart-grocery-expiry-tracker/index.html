@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🥬 Smart Grocery Expiry Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🥬 Smart Grocery Expiry Tracker</h1>
+            <em>♻️ Reduce food waste by keeping track of your groceries!</em>
+        </header>
+
+        <main>
+            <!-- Input Section -->
+            <section class="input-section">
+                <h2>➕ Add Grocery Item</h2>
+                <form class="grocery-form" id="grocery-form">
+                    <div class="inputs">
+                        <div>
+                            <label for="name">Item Name:</label>
+                            <input type="text" id="item-name" placeholder="🍏 Item Name" required>
+                        </div>
+
+                        <div>
+                            <label for="expiry-date">Expiry Date:</label>
+                            <input type="date" id="expiry-date" placeholder="Expiry Date" required>
+                        </div>
+                        
+                    </div>
+                    <div class="right">
+                        <select class="category" id="category">
+                            <option value="all">🛍️ All Groceries</option>
+                            <option value="fruits">🍎 Fruits</option>
+                            <option value="vegetables">🥦 Vegetables</option>
+                            <option value="dairy">🥛 Dairy</option>
+                            <option value="meat">🍗 Meat</option>
+                            <option value="bakery">🍞 Bakery</option>
+                            <option value="beverages">🥤 Beverages</option>
+                            <option value="snacks">🍪 Snacks</option>
+                            <option value="others">📦 Others</option>
+                        </select>
+                        <button type="submit">✅ Add Item</button>
+                    </div>
+                    
+                </form>
+            </section>
+
+            <!-- Grocery List Section -->
+            <section class="grocery-list-section">
+                <h2>🛒 Grocery List</h2>
+                <div class="filter-sort">
+                    <select id="filterCategory">
+                        <option value="all">🛍️ All Groceries</option>
+                        <option value="fruits">🍎 Fruits</option>
+                        <option value="vegetables">🥦 Vegetables</option>
+                        <option value="dairy">🥛 Dairy</option>
+                        <option value="meat">🍗 Meat</option>
+                        <option value="bakery">🍞 Bakery</option>
+                        <option value="beverages">🥤 Beverages</option>
+                        <option value="snacks">🍪 Snacks</option>
+                        <option value="others">📦 Others</option>
+                    </select>
+
+                    <select id="sortBy">
+                        <option value="">↕️ Sort By</option>
+                        <option value="name">🔤 Name</option>
+                        <option value="expiry">⏰ Expiry Date</option>
+                        <option value="category">📂 Category</option>
+                    </select>
+                </div>
+
+                <ul class="grocery-list" id="grocery-list">
+                    <!-- Grocery items will be dynamically added here -->
+                    <li>
+                        <div class="item">
+                            <div>
+                                <h3 class="item-name">Vegetables</h3>
+                                <p>Expiry Date</p>
+                                <p class="date">September 23, 2027</p>
+                            </div>
+                    
+                            <div class="item-column-2">
+                                <p class="warning" id="status">1 <span>Days</span> left</p>
+                                <button class="delete-btn" onclick="removeGrocery(id)">Delete</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <!-- Notifications Section -->
+            <section class="notifications-section">
+                <h2>🔔 Notifications</h2>
+                <div id="notifications">
+                    <!-- Notifications will be dynamically added here -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="./main.js" charset="UTF-8"></script>
+</body>
+
+</html>
