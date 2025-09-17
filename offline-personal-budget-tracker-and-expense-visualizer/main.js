@@ -13,7 +13,7 @@ const expenseChart = document.getElementById("expense-chart");
 
 // Array for storing expenses
 let expenses = [];
-let budget = 0; // Changed from array to single number
+let budget = 0; 
 
 // Load expenses from local storage
 if(localStorage.getItem("expenses")) {
@@ -22,7 +22,7 @@ if(localStorage.getItem("expenses")) {
 
 // Load budget from local storage
 if(localStorage.getItem("budget")) {
-    budget = parseFloat(localStorage.getItem("budget")) || 0; // Parse as number
+    budget = parseFloat(localStorage.getItem("budget")) || 0; 
 };
 
 // Generate random id
