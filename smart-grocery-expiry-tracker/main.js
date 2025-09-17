@@ -20,6 +20,15 @@ function generateID() {
     return Math.floor(Math.random() * 1000000);
 };
 
+// Grocery constructor
+function Grocery(id, name, expirydate, category, date) {
+    this.id = id;
+    this.name = name;
+    this.expirydate = expirydate;
+    this.category = category;
+    this.date = date
+}
+
 // Create grocery
 function addGrocery(e) {
     e.preventDefault();
@@ -31,13 +40,18 @@ function addGrocery(e) {
     };
 
     // Create grocery
-    const groceryItem = {
-        id: generateID(),
-        name: itemName.value,
-        expirydate: expiryDate.value,
-        category: category.value,
-        date: new Date().toISOString(),
-    };
+    const groceryItem = new Grocery(id = generateID(), itemName.value, expiryDate.value, category.value, new Date().toISOString()); 
+
+    // OR
+
+    // Create grocery
+    // const groceryItem = {
+    //     id: generateID(),
+    //     name: itemName.value,
+    //     expirydate: expiryDate.value,
+    //     category: category.value,
+    //     date: new Date().toISOString(),
+    // };
 
     // Store item in the array
     groceries.push(groceryItem);

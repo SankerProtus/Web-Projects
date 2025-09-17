@@ -10,7 +10,7 @@ const amount = document.getElementById("amount");
 const form = document.getElementById("form");
 const filterCategory = document.getElementById("filterCategory");
 const sortBy = document.getElementById("sortBy");
-const list = document.getElementById("list");
+const  list = document.getElementById("list");
 const clearAllBtn = document.getElementById("clearAll");
 
 // Initialize empty array to store transaction items

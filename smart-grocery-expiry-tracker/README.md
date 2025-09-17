@@ -80,13 +80,21 @@ A modern, responsive web application that helps you track grocery items and thei
 2. **Open `index.html`** in your web browser
 3. **Start tracking** your groceries immediately!
 
-```bash
-# If using git
-git clone https://github.com/SankerProtus/Web-Projects.git
-cd smart-grocery-expiry-tracker
+### Running Projects
+1. **Clone the repository**
+  ```bash
+   git clone https://github.com/SankerProtus/Web-Projects.git
+   cd Web-Projects
+  ```
 
-# Then open index.html in your browser
-```
+2. **Navigate to any project folder**
+   ```bash
+   cd project-name
+   ```
+
+3. **Open in browser**
+   - Double-click `index.html` or
+   - Use a local server: `python -m http.server 8000`
 
 ## 📖 **How to Use**
 
@@ -162,9 +170,17 @@ Contributions are welcome! Feel free to:
 
 This project is open source and available under the [MIT License](LICENSE).
 
-## 👨‍💻 **Author**
+## 👨‍💻 **Author** *📞 Connect With Me*
+- **GitHub**: [@SankerProtus](https://github.com/SankerProtus)
+- **Email**: [sankerprotus04@gmail.com]
 
 Created with ❤️ to help reduce food waste and make grocery management easier.
+
+<div align="center">
+  <p><strong>🌟 Star this repository if you found it helpful!</strong></p>
+  <p>Made with ❤️ and lots of ☕</p>
+  <p><em>Continuously learning and building amazing web experiences</em></p>
+</div>
 
 ---
 

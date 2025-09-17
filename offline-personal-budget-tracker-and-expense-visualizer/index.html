@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="main.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1 class="heading">Personal Budget Tracker and Expense Visualizer</h1>
+    </header>
+    <main>
+        <section id="budget-form-section">
+            <h2>Set Your Budget</h2>
+            <form id="budget-form">
+                <label for="budget-amount">Budget Amount:</label>
+                <input type="number" id="budget-amount" required>
+                <button type="submit">Set Budget</button>
+            </form>
+        </section>
+
+        <section id="expense-form-section">
+            <h2>Add Expense</h2>
+            <form id="expense-form">
+                <label for="expense-description">Description:</label>
+                <input type="text" id="expense-description" required>
+                
+                <label for="expense-amount">Amount:</label>
+                <input type="number" id="expense-amount" required>
+                
+                <label for="expense-category">Category:</label>
+                <select id="expense-category" required>
+                    <option name="all" id="all" value="">Select Category</option>
+                    <option value="Food">Food</option>
+                    <option value="Transport">Transport</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Utilities">Utilities</option>
+                    <option value="Other">Other</option>
+                </select>
+                
+                <button type="submit">Add Expense</button>
+            </form>
+        </section>
+
+        <section id="expenses-section">
+            <h2>Expenses</h2>
+            <ul id="expenses-list">
+                <!-- Sample expense item - remove this when implementing dynamic functionality -->
+                <li class="expense-item" data-id="sample-1" data-category="Food">
+                    <div class="expense-header">
+                        <span class="expense-description">Grocery Shopping</span>
+                        <span class="expense-amount">$45.99</span>
+                    </div>
+                    <div class="expense-details">
+                        <span class="expense-category">Food</span>
+                        <span class="expense-date">Sept 17, 2025</span>
+                        <div class="expense-actions">
+                            <button class="edit-btn" data-id="sample-1">Edit</button>
+                            <button class="delete-btn" data-id="sample-1">Delete</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section id="summary-section">
+            <h2>Summary</h2>
+            <p>Total Budget: $<span id="total-budget">0</span></p>
+            <p>Total Expenses: $<span id="total-expenses">0</span></p>
+            <p>Remaining Budget: $<span id="remaining-budget">0</span></p>
+        </section>
+
+        <section id="chart-section">
+            <h2>Expense Distribution</h2>
+            <canvas id="expense-chart"></canvas>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Personal Budget Tracker</p>
+    </footer>
+</body>
+</html>
