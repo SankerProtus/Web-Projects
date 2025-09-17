@@ -93,6 +93,7 @@ function updateSummarySection() {
     totalBudget.innerText = getCurrentBudget().toFixed(2);
     totalExpenses.innerText = calculateTotalExpenses().toFixed(2);
     remainingBudget.innerText = calculateRemainingBudget().toFixed(2);
+    updateExpenseChart(); // Update chart when summary changes
 }
 
 // Add to DOM
@@ -138,22 +139,12 @@ function addExpense(e) {
     alert("Expense added successfully!");
 }
 
-// Load data from localStorage on page load
-function loadData() {
-    if(expenses.length > 0) {
-        expenses.forEach(expense => {
-            addExpenseDom(expense);
-        });
-    }
-    updateSummarySection();
-}
-
 // Add expense to DOM
 function addExpenseDom(expense) {
     // Format the date
     const date = new Date(expense.date);
     const formattedDate = date.toLocaleDateString('en-US', { 
-        month: 'short', 
+        month: 'long', 
         day: 'numeric', 
         year: 'numeric' 
     });
@@ -233,11 +224,6 @@ function updateLocalStorage() {
     localStorage.setItem("budget", budget.toString());
 }
 
-// On page load
-document.addEventListener("DOMContentLoaded", () => {
-    loadData();
-});
-
 // Validation event listeners
 budgetAmount.addEventListener("input", () => {
     const value = parseFloat(budgetAmount.value);
@@ -275,3 +261,209 @@ expenseCategoryInput.addEventListener("input", () => {
 
 expenseForm.addEventListener("submit", addExpense);
 budgetForm.addEventListener("submit", setBudget);
+
+// ===== EXPENSE DISTRIBUTION CHART FUNCTIONALITY =====
+
+let expenseChartInstance = null;
+
+// Initialize chart on page load
+function initializeChart() {
+    // Wait for Chart.js to be available
+    if (typeof Chart === 'undefined') {
+        console.log('Chart.js not loaded yet, retrying...');
+        setTimeout(initializeChart, 100);
+        return;
+    }
+    
+    console.log('Chart.js loaded, initializing chart...');
+    updateExpenseChart();
+}
+
+// Calculate category totals for chart
+function calculateCategoryTotals() {
+    const categoryTotals = {};
+    
+    if (!expenses || expenses.length === 0) {
+        console.log('No expenses found for chart');
+        return categoryTotals;
+    }
+    
+    expenses.forEach(expense => {
+        const category = expense.category;
+        const amount = parseFloat(expense.amount);
+        
+        if (!isNaN(amount)) {
+            if (categoryTotals[category]) {
+                categoryTotals[category] += amount;
+            } else {
+                categoryTotals[category] = amount;
+            }
+        }
+    });
+    
+    console.log('Category totals calculated:', categoryTotals);
+    return categoryTotals;
+}
+
+// Update expense distribution chart
+function updateExpenseChart() {
+    console.log('Updating expense chart...');
+    
+    // Check if Chart.js is available
+    if (typeof Chart === 'undefined') {
+        console.log('Chart.js not available, skipping chart update');
+        return;
+    }
+    
+    const categoryTotals = calculateCategoryTotals();
+    const categories = Object.keys(categoryTotals);
+    const amounts = Object.values(categoryTotals);
+    
+    console.log('Chart data - Categories:', categories, 'Amounts:', amounts);
+    
+    const canvas = document.getElementById('expense-chart');
+    if (!canvas) {
+        console.error('Chart canvas not found');
+        return;
+    }
+    
+    // Destroy existing chart if it exists
+    if (expenseChartInstance) {
+        console.log('Destroying existing chart');
+        expenseChartInstance.destroy();
+        expenseChartInstance = null;
+    }
+    
+    // If no expenses, show empty state
+    if (categories.length === 0) {
+        console.log('No categories to display, clearing chart');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw empty state message
+        ctx.font = '16px Inter, sans-serif';
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'center';
+        ctx.fillText('No expenses yet. Add some expenses to see the distribution.', canvas.width / 2, canvas.height / 2);
+        return;
+    }
+    
+    // Chart colors
+    const backgroundColors = [
+        '#FF6384', 
+        '#36A2EB', 
+        '#FFCE56', 
+        '#4BC0C0', 
+        '#9966FF', 
+        '#FF9F40', 
+        '#FF6B6B', 
+        '#4ECDC4', 
+        '#45B7D1', 
+        '#96CEB4' 
+    ];
+    
+    try {
+        const ctx = canvas.getContext('2d');
+        
+        // Create new chart
+        expenseChartInstance = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Expense Amount',
+                    data: amounts,
+                    backgroundColor: backgroundColors.slice(0, categories.length),
+                    borderColor: '#ffffff',
+                    borderWidth: 3,
+                    hoverOffset: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                layout: {
+                    padding: 0
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Expense Distribution by Category',
+                        font: {
+                            size: 16,
+                            weight: 'bold',
+                            family: 'Inter'
+                        },
+                        color: '#1e293b',
+                        padding: 10
+                    },
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 10,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            font: {
+                                size: 12,
+                                family: 'Inter'
+                            },
+                            color: '#475569'
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#1e293b',
+                        titleColor: '#ffffff',
+                        bodyColor: '#ffffff',
+                        borderColor: '#64748b',
+                        borderWidth: 1,
+                        cornerRadius: 8,
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                const label = context.label || '';
+                                const value = context.parsed;
+                                const total = amounts.reduce((a, b) => a + b, 0);
+                                const percentage = ((value / total) * 100).toFixed(1);
+                                return `${label}: $${value.toFixed(2)} (${percentage}%)`;
+                            }
+                        }
+                    }
+                },
+                cutout: '60%',
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
+                }
+            }
+        });
+        
+        console.log('Chart created successfully');
+        
+    } catch (error) {
+        console.error('Error creating chart:', error);
+    }
+}
+
+// Enhanced load data function
+function loadData() {
+    console.log('Loading data...');
+    console.log('Expenses from localStorage:', expenses);
+    
+    if(expenses.length > 0) {
+        expenses.forEach(expense => {
+            addExpenseDom(expense);
+        });
+    }
+    updateSummarySection();
+    
+    // Initialize chart after data is loaded
+    setTimeout(() => {
+        initializeChart();
+    }, 100);
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener("DOMContentLoaded", () => {
+    console.log('DOM Content Loaded');
+    loadData();
+});

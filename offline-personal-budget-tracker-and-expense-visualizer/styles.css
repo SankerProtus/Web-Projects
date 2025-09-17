@@ -454,13 +454,35 @@ button:active {
 /* ===== CHART SECTION ===== */
 #chart-section {
   grid-column: 1 / -1;
-  min-height: 400px;
+  height: 450px; 
+  max-height: 450px; 
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--gray-200);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; 
+  overflow: hidden; 
+}
+
+#chart-section h2 {
+  margin-bottom: var(--spacing-4);
+  color: var(--gray-800);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  flex-shrink: 0; 
 }
 
 #expense-chart {
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  max-width: 400px; 
+  height: 300px; 
+  max-height: 300px; 
   border-radius: var(--radius-md);
+  flex-shrink: 0; 
 }
 
 /* ===== FOOTER ===== */
@@ -503,6 +525,15 @@ footer p {
   
   #chart-section {
     grid-column: 1;
+    height: 400px; 
+    max-height: 400px;
+    padding: var(--spacing-4);
+  }
+  
+  #expense-chart {
+    max-width: 350px;
+    height: 250px;
+    max-height: 250px;
   }
 }
 
@@ -518,6 +549,24 @@ footer p {
   
   main {
     padding: var(--spacing-2);
+  }
+  
+  /* Chart section mobile adjustments */
+  #chart-section {
+    height: 350px; 
+    max-height: 350px;
+    padding: var(--spacing-3);
+  }
+  
+  #chart-section h2 {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  #expense-chart {
+    max-width: 280px;
+    height: 200px;
+    max-height: 200px;
   }
   
   /* Mobile responsive adjustments for expense items */
