@@ -15,7 +15,7 @@ A modern, elegant note-taking application built with React and Material-UI. Insp
 - **Create Notes**: Add notes with title and content
 - **Delete Notes**: Remove unwanted notes with a single click
 - **Expandable Form**: Click to expand the note creation form
-- **Auto-collapse**: Form automatically collapses after 3 minutes of inactivity
+- **Auto-collapse**: Form automatically collapses after 2 minutes of inactivity
 - **Real-time Updates**: Instant note creation and deletion
 
 ### 🎨 User Interface
@@ -104,7 +104,7 @@ keeper-app/
 
 ### Auto-collapse Timer
 The app includes an intelligent auto-collapse feature:
-- Timer starts when the form expands (3 minutes)
+- Timer starts when the form expands (2 minutes)
 - Timer resets on any user interaction (typing, submitting)
 - Timer continues after adding notes for continued use
 - Automatic cleanup prevents memory leaks
